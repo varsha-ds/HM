@@ -1,0 +1,58 @@
+// src/pages/Locations/index.tsx
+"use client"; // Mark this as a Client Component
+
+import React, { useState } from "react";
+import Link from "next/link";
+
+const LocationsPage = () => {
+  const [locations, setLocations] = useState<string[]>([]);
+  const [newLocation, setNewLocation] = useState("");
+
+  const handleAddLocation = () => {
+    if (newLocation.trim()) {
+      setLocations([...locations, newLocation]);
+      setNewLocation(""); // Clear the input after adding
+    }
+  };
+
+  return (
+    <div className="p-8">
+      <h1 className="text-2xl font-bold mb-4">Locations</h1>
+
+      {/* Form to Add New Location */}
+      <div className="mb-6">
+        <input
+          type="text"
+          value={newLocation}
+          onChange={(e) => setNewLocation(e.target.value)}
+          placeholder="Enter a new location"
+          className="p-2 border border-gray-300 rounded mr-2"
+        />
+        <button
+          onClick={handleAddLocation}
+          className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        >
+          Add Location
+        </button>
+      </div>
+
+      {/* List of Locations */}
+      <ul className="space-y-2">
+        {locations.map((location, index) => (
+          <li key={index} className="p-2 bg-gray-100 rounded">
+            {location}
+          </li>
+        ))}
+      </ul>
+
+      {/* Back to Home */}
+      <div className="mt-6">
+        <Link href="/" className="text-blue-500 hover:underline">
+          Go back to Home
+        </Link>
+      </div>
+    </div>
+  );
+};
+
+export default LocationsPage;
